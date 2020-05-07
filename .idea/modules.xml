@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/coursera-sharingApp.iml" filepath="$PROJECT_DIR$/coursera-sharingApp.iml" group="coursera-sharingApp" />
+      <module fileurl="file://$PROJECT_DIR$/app/coursera-sharingApp-app.iml" filepath="$PROJECT_DIR$/app/coursera-sharingApp-app.iml" group="coursera-sharingApp/app" />
+    </modules>
+  </component>
+</project>
