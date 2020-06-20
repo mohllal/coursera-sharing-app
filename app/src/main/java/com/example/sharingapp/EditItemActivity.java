@@ -130,8 +130,14 @@ public class EditItemActivity extends AppCompatActivity{
 
     public void deleteItem(View view) {
 
-        item_list.deleteItem(item);
-        item_list.saveItems(context);
+        // Delete item
+        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(item_list, item, context);
+        deleteItemCommand.execute();
+
+        boolean success = deleteItemCommand.getIsExecuted();
+        if (!success){
+            return;
+        }
 
         // End EditItemActivity
         Intent intent = new Intent(this, MainActivity.class);
@@ -194,9 +200,14 @@ public class EditItemActivity extends AppCompatActivity{
             updated_item.setBorrower(contact);
         }
 
-        item_list.deleteItem(item);
-        item_list.addItem(updated_item);
-        item_list.saveItems(context);
+        // Edit item
+        EditItemCommand editItemCommand = new EditItemCommand(item_list, item, updated_item, context);
+        editItemCommand.execute();
+
+        boolean success = editItemCommand.getIsExecuted();
+        if (!success){
+            return;
+        }
 
         // End EditItemActivity
         Intent intent = new Intent(this, MainActivity.class);
