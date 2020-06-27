@@ -1,0 +1,30 @@
+package com.example.sharingapp;
+
+import java.util.ArrayList;
+
+public class Observable {
+    private ArrayList<Observer> observers = null;
+
+    public Observable(){
+        observers = new ArrayList<Observer>();
+    }
+
+    // Notify observers when need to update any changes made to model
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
+
+    // Add observer to the observers list
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    // Remove observer from the observers list
+    public void removeObserver(Observer observer) {
+        if (observers.contains(observer)) {
+            observers.remove(observer);
+        }
+    }
+}

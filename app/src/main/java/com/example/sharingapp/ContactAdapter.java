@@ -30,6 +30,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         // getItem(position) gets the "contact" at "position" in the "contacts" ArrayList
         // (where "contacts" is a parameter in the ContactAdapter creator as seen above ^^)
         Contact contact = getItem(position);
+        ContactController contact_controller = new ContactController(contact);
 
         // Check if an existing view is being reused, otherwise inflate the view.
         if (convertView == null) {
@@ -43,8 +44,8 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         photo.setImageResource(android.R.drawable.ic_menu_gallery);
 
         if (contact != null) {
-            String username = "Username: " + contact.getUsername();
-            String email = "Email: " + contact.getEmail();
+            String username = "Username: " + contact_controller.getUsername();
+            String email = "Email: " + contact_controller.getEmail();
 
             username_tv.setText(username);
             email_tv.setText(email);
