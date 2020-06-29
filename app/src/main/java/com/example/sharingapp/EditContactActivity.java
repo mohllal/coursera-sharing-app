@@ -29,6 +29,10 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
     private boolean on_create_update = true;
     private int pos;
 
+    private String email_str;
+    private String username_str;
+    private String id_str;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,34 +49,19 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
         contact_list_controller.addObserver(this);
         contact_list_controller.loadContacts(context);
 
-        on_create_update = true;
+        on_create_update = false;
     }
 
     public void saveContact(View view) {
+        email_str = email.getText().toString();
+        username_str = username.getText().toString();
+        id_str = contact_controller.getId(); // Reuse the contact id
 
-        String email_str = email.getText().toString();
+//        if (!validateInput()) {
+//            return;
+//        }
 
-        if (email_str.equals("")) {
-            email.setError("Empty field!");
-            return;
-        }
-
-        if (!email_str.contains("@")){
-            email.setError("Must be an email address!");
-            return;
-        }
-
-        String username_str = username.getText().toString();
-        String id = contact_controller.getId(); // Reuse the contact id
-
-        // Check that username is unique AND username is changed (Note: if username was not changed
-        // then this should be fine, because it was already unique.)
-        if (!contact_list_controller.isUsernameAvailable(username_str) && !(contact_controller.getUsername().equals(username_str))) {
-            username.setError("Username already taken!");
-            return;
-        }
-
-        Contact updated_contact = new Contact(username_str, email_str, id);
+        Contact updated_contact = new Contact(username_str, email_str, id_str);
         ContactController updated_contact_controller = new ContactController(updated_contact);
 
         // Edit contact
@@ -116,5 +105,26 @@ public class EditContactActivity extends AppCompatActivity implements Observer {
             username.setText(contact.getUsername());
             email.setText(contact.getEmail());
         }
+    }
+
+    public boolean validateInput() {
+        if (email_str.equals("")) {
+            email.setError("Empty field!");
+            return false;
+        }
+
+        if (!email_str.contains("@")){
+            email.setError("Must be an email address!");
+            return false;
+        }
+
+        // Check that username is unique AND username is changed (Note: if username was not changed
+        // then this should be fine, because it was already unique.)
+        if (!contact_list_controller.isUsernameAvailable(username_str) && !(contact_controller.getUsername().equals(username_str))) {
+            username.setError("Username already taken!");
+            return false;
+        }
+
+        return true;
     }
 }
